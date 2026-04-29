@@ -1,14 +1,98 @@
 <!DOCTYPE html>
-<html>
-<body onclick="startFeast()">
-    <h1>點擊屏幕開啟視覺盛宴</h1>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN 訂閱地址分享站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="gradient-bg text-white py-12 px-4 text-center shadow-lg">
+        <h1 class="text-4xl font-bold mb-4">VPN 訂閱服務分享</h1>
+        <p class="text-lg opacity-90">獲取最新的訂閱鏈接，隨時隨地暢游網路</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6 -mt-10">
+        
+        <section class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4 border-l-4 border-indigo-500 pl-3">現用訂閱地址</h2>
+            <p class="text-gray-600 mb-6">請複製下方鏈接並粘貼至您的客戶端軟件中：</p>
+            
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="text" readonly value="https://example.com/api/v1/subscribe?token=YOUR_TOKEN_1" 
+                           class="flex-1 bg-gray-100 border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 focus:outline-none">
+                    <button onclick="copyToClipboard(this)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded transition shadow-sm">
+                        複製鏈接
+                    </button>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="text" readonly value="https://example.com/api/v1/subscribe?token=YOUR_TOKEN_2" 
+                           class="flex-1 bg-gray-100 border border-gray-300 rounded px-4 py-2 text-sm text-gray-700 focus:outline-none">
+                    <button onclick="copyToClipboard(this)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded transition shadow-sm">
+                        複製鏈接
+                    </button>
+                </div>
+            </div>
+            <p class="mt-4 text-xs text-red-500">* 注意：請勿將訂閱地址公開分享給他人，以免流量耗盡或被封禁。</p>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-6 border-l-4 border-indigo-500 pl-3">快速上手指南</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">1</div>
+                    <h3 class="font-bold mb-2">下載客戶端</h3>
+                    <p class="text-sm text-gray-600">打開您的Shadowrocket並且點擊右上方的"+"</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">2</div>
+                    <h3 class="font-bold mb-2">導入訂閱</h3>
+                    <p class="text-sm text-gray-600">在"類型"中選擇「Subscribe」，並粘貼上方複製的鏈接。</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl">3</div>
+                    <h3 class="font-bold mb-2">更新並連接</h3>
+                    <p class="text-sm text-gray-600">更新節點列表，選擇一個延遲較低的節點點擊「連接」即可。</p>
+                </div>
+            </div>
+
+            <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                <p class="text-sm text-yellow-800">
+                    <strong>常見問題：</strong> 如果連接失敗，請確認系統時間是否準確，或嘗試切換不同的傳輸協議。
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-10 text-gray-400 text-sm">
+        &copy; 2026 VPN 訂閱分享站 | 僅供學習與研究使用
+    </footer>
+
     <script>
-        function startFeast() {
-            // 彈出 20 次報錯
-            for (let i = 0; i < 20000000; i++) {
-                alert("⚠ 系統錯誤 " + i + ": 檢測到非法操作！");
-            }
-            alert("盛宴結束。");
+        function copyToClipboard(button) {
+            const input = button.previousElementSibling;
+            input.select();
+            input.setSelectionRange(0, 99999); // 手機端兼容
+            document.execCommand("copy");
+            
+            // 按鈕反饋效果
+            const originalText = button.innerText;
+            button.innerText = "已複製！";
+            button.classList.replace('bg-indigo-600', 'bg-green-600');
+            
+            setTimeout(() => {
+                button.innerText = originalText;
+                button.classList.replace('bg-green-600', 'bg-indigo-600');
+            }, 2000);
         }
     </script>
 </body>
